@@ -147,11 +147,13 @@ buildFamily people =
                 |> List.map .nome
                 |> Set.fromList
 
-        unknownChildren =
+        childNames =
             people
                 |> List.concatMap .filhos
                 |> Set.fromList
-                |> Set.diff knownPeople
+
+        unknownChildren =
+            Set.diff childNames knownPeople
     in
     if Set.isEmpty unknownChildren then
         Decode.succeed
